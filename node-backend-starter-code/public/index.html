@@ -1,0 +1,14 @@
+<html>
+  <body>
+    <form id="searchForm" onsubmit="return false;">
+      <input type="text" name="searchText">
+      <button>Search</button>
+    </form>
+    <div id='movieList'>
+    </div>
+  </body>
+  <script src="movie-list.js"></script>
+  <script>
+    buildMovieList(document.getElementById('searchForm'), document.getElementById('movieList'));
+  </script>
+</html>
