@@ -6,9 +6,15 @@
     </form>
     <ol id='movieList'>
     </ol>
+    <div id='selectedMovieDescription'>
+    </div>
   </body>
   <script src="movie-list.js"></script>
   <script>
-    buildMovieList(document.getElementById('searchForm'), document.getElementById('movieList'));
+    buildMovieList(
+      document.getElementById('searchForm'),
+      document.getElementById('movieList'),
+      document.getElementById('selectedMovieDescription')
+    );
   </script>
 </html>
