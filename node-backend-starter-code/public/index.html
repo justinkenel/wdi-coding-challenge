@@ -4,6 +4,7 @@
       <input type="text" name="searchText" placeholder="Find Movies...">
       <button>Search</button>
     </form>
+    <a href="" id="showFavorites">Show Favorites</a>
     <ol id='movieList'>
     </ol>
     <div id='selectedMovieDescription'>
@@ -17,6 +18,7 @@
       document.getElementById('searchForm'),
       document.getElementById('movieList'),
       document.getElementById('selectedMovieDescription'),
+      document.getElementById('showFavorites'),
       omdbApi(),
       favoritesService()
     );

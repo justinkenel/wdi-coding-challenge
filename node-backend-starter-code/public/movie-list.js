@@ -1,5 +1,6 @@
-function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi,
-    favoritesService) {
+function buildMovieList(
+    searchForm, movieList, selectedMovieDescription, showFavorites,
+    omdbApi, favoritesService) {
   function displayMovieDetails(imdbID) {
     omdbApi.getMovieDetails(imdbID, function(result) {
       // Construct the table containing the information about the selected
@@ -17,17 +18,9 @@ function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi
     });
   }
 
-  function buildMovieElement(movieData) {
+  function buildMovieElement(movieData, showFavoriteIcon) {
     var title = movieData.Title;
-    var year = movieData.Year;
     var imdbID = movieData.imdbID;
-
-    var addToFavoritesElement = document.createElement('span');
-    addToFavoritesElement.innerHTML = '☆';
-    addToFavoritesElement.title = 'Add to favorites';
-    addToFavoritesElement.onclick = function() {
-      favoritesService.addFavorite(movieData, function() {});
-    };
 
     var titleElement = document.createElement('span');
     titleElement.innerHTML = title;
@@ -36,11 +29,41 @@ function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi
     };
 
     var movieElement = document.createElement('li');
-    movieElement.append(addToFavoritesElement);
+    if(showFavoriteIcon) {
+      var addToFavoritesElement = document.createElement('span');
+      addToFavoritesElement.innerHTML = '☆';
+      addToFavoritesElement.title = 'Add to favorites';
+      addToFavoritesElement.onclick = function() {
+        favoritesService.addFavorite(movieData, function() {});
+      };
+
+      movieElement.append(addToFavoritesElement);
+    }
+
     movieElement.append(titleElement);
 
     return movieElement;
   }
+
+  // Using the buildMovieELement function (which includes the logic for clicking
+  // on a movie link to display the information about that movie) build the
+  // display for the movies that are in the users favorites list
+  function displayFavorites() {
+    favoritesService.getFavorites(function(favorites) {
+      movieList.innerHTML = "";
+      for(var i in favorites) {
+        var movieElement = buildMovieElement(favorites[i], false);
+        movieList.append(movieElement);
+      }
+    });
+  }
+
+  // showFavorites is a provided link element
+  // clicking the link will call the displayFavorites function, defined above
+  showFavorites.onclick = function() {
+    displayFavorites();
+    return false;
+  };
 
   searchForm.addEventListener("submit", function(event) {
     var searchText = searchForm.elements['searchText'].value;
@@ -53,7 +76,7 @@ function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi
       //  - append the constructed element to the list
       var searchValues = results['Search'];
       for(var i in searchValues) {
-        var li = buildMovieElement(searchValues[i]);
+        var li = buildMovieElement(searchValues[i], true);
         movieList.append(li);
       }
     });

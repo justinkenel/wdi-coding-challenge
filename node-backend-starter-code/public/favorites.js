@@ -7,6 +7,12 @@ function favoritesService() {
 
       request.onload = function(event) {
         var results = JSON.parse(request.responseText);
+        for(var i in results) {
+          results[i] = {
+            Title: results[i].name,
+            imdbID: results[i].oid
+          };
+        }
         onLoad(results);
       };
       request.onerror = function(event) {
