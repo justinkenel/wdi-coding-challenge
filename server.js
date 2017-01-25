@@ -4,6 +4,12 @@ var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 
+// Synchronously check if the data file exists - if not, create with an
+// empty list
+if(!fs.existsSync("./data.json")) {
+  fs.writeFileSync("./data.json", "[]")
+}
+
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
