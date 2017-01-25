@@ -4,6 +4,8 @@ var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 
+var port = (process.env.PORT || 5000);
+
 // Synchronously check if the data file exists - if not, create with an
 // empty list
 if(!fs.existsSync("./data.json")) {
@@ -35,6 +37,6 @@ app.post('/favorites', function(req, res){
   res.send(data);
 });
 
-app.listen(3000, function(){
-  console.log("Listening on port 3000");
+app.listen(port, function(){
+  console.log("Listening on port " + port);
 });
