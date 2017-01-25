@@ -1,15 +1,19 @@
 <html>
   <body>
-    <form id="searchForm" onsubmit="return false;">
-      <input type="text" name="searchText" placeholder="Find Movies...">
-      <button>Search</button>
-    </form>
-    <a href="" id="showFavorites">Show Favorites</a>
-    <ol id='movieList'>
-    </ol>
-    <div id='selectedMovieDescription'>
+    <div class="container">
+      <div id="results">
+        <form id="searchForm" onsubmit="return false;">
+          <input type="text" name="searchText" placeholder="Find Movies...">
+        </form>
+        <a href="" id="showFavorites">Show Favorites</a>
+        <ol id='movieList'>
+        </ol>
+      </div>
+      <div id='selectedMovieDescription'>
+      </div>
     </div>
   </body>
+  <link rel="stylesheet" href="styles.css">
   <script src="movie-list.js"></script>
   <script src="omdb-api.js"></script>
   <script src="favorites.js"></script>

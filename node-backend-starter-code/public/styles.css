@@ -1,0 +1,59 @@
+body {
+  background-color: #ffd394;
+  font-family: Verdana, Arial, sans-serif;
+  font-size: 15;
+}
+
+.container {
+  background-color: white;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+input[name=searchText] {
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  padding-top: 5px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+#movieList {
+  list-style-type:none;
+}
+
+#movieList li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.favoriteStar {
+  padding-right: 5px;
+}
+
+#results {
+  vertical-align:top;
+  padding-right: 10px;
+  display: inline-block;
+  min-width: 400px;
+  max-width: 600px;
+}
+
+#selectedMovieDescription {
+  vertical-align:top;
+  top: 0px;
+  min-width: 400px;
+  max-width: 600px;
+  display: inline-block;
+}
+
+#selectedMovieDescription td {
+  padding-left: 8px;
+  padding-bottom: 4px;
+}
