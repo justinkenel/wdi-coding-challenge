@@ -1,4 +1,5 @@
-function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi) {
+function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi,
+    favoritesService) {
   function displayMovieDetails(imdbID) {
     omdbApi.getMovieDetails(imdbID, function(result) {
       // Construct the table containing the information about the selected
@@ -21,11 +22,22 @@ function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi
     var year = movieData.Year;
     var imdbID = movieData.imdbID;
 
-    var movieElement = document.createElement('li');
-    movieElement.innerHTML = title;
-    movieElement.onclick = function() {
+    var addToFavoritesElement = document.createElement('span');
+    addToFavoritesElement.innerHTML = '☆';
+    addToFavoritesElement.title = 'Add to favorites';
+    addToFavoritesElement.onclick = function() {
+      favoritesService.addFavorite(movieData, function() {});
+    };
+
+    var titleElement = document.createElement('span');
+    titleElement.innerHTML = title;
+    titleElement.onclick = function() {
       displayMovieDetails(imdbID);
     };
+
+    var movieElement = document.createElement('li');
+    movieElement.append(addToFavoritesElement);
+    movieElement.append(titleElement);
 
     return movieElement;
   }

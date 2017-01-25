@@ -1,7 +1,7 @@
 <html>
   <body>
     <form id="searchForm" onsubmit="return false;">
-      <input type="text" name="searchText">
+      <input type="text" name="searchText" placeholder="Find Movies...">
       <button>Search</button>
     </form>
     <ol id='movieList'>
@@ -11,12 +11,14 @@
   </body>
   <script src="movie-list.js"></script>
   <script src="omdb-api.js"></script>
+  <script src="favorites.js"></script>
   <script>
     buildMovieList(
       document.getElementById('searchForm'),
       document.getElementById('movieList'),
       document.getElementById('selectedMovieDescription'),
-      omdbApi()
+      omdbApi(),
+      favoritesService()
     );
   </script>
 </html>
