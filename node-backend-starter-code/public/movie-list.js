@@ -1,38 +1,6 @@
-function buildMovieList(searchForm, movieList, selectedMovieDescription) {
-  function searchOmdb(searchText, onLoad, onError) {
-    var searchUrl = 'http://www.omdbapi.com/?type=movie&s=';
-    var searchRequest = new XMLHttpRequest();
-    var requestUrl = searchUrl + encodeURIComponent(searchText.trim());
-    searchRequest.open("GET", requestUrl, true);
-
-    searchRequest.onload = function(event) {
-      var results = JSON.parse(searchRequest.responseText);
-      onLoad(results);
-    };
-    searchRequest.onerror = function(event) {
-      onError(searchRequest);
-    };
-    searchRequest.send(null);
-  }
-
-  function getMovieDetails(imdbID, onLoad, onError) {
-    var movieDetailUrl = 'http://www.omdbapi.com/?plot=full&i=';
-    var movieDetailRequest = new XMLHttpRequest();
-    var requestUrl = movieDetailUrl + encodeURIComponent(imdbID);
-    movieDetailRequest.open("GET", requestUrl, true);
-
-    movieDetailRequest.onload = function(event) {
-      var results = JSON.parse(movieDetailRequest.responseText);
-      onLoad(results);
-    };
-    movieDetailRequest.onerror = function(event) {
-      onError(movieDetailRequest);
-    };
-    movieDetailRequest.send(null);
-  }
-
+function buildMovieList(searchForm, movieList, selectedMovieDescription, omdbApi) {
   function displayMovieDetails(imdbID) {
-    getMovieDetails(imdbID, function(result) {
+    omdbApi.getMovieDetails(imdbID, function(result) {
       // Construct the table containing the information about the selected
       // movie.
       // Setting the value of innerHTML updates the element, in this case
@@ -64,7 +32,7 @@ function buildMovieList(searchForm, movieList, selectedMovieDescription) {
 
   searchForm.addEventListener("submit", function(event) {
     var searchText = searchForm.elements['searchText'].value;
-    searchOmdb(searchText, function(results) {
+    omdbApi.searchOmdb(searchText, function(results) {
       // remove all elements currently in the search results
       movieList.innerHTML = "";
 

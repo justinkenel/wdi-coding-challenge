@@ -10,11 +10,13 @@
     </div>
   </body>
   <script src="movie-list.js"></script>
+  <script src="omdb-api.js"></script>
   <script>
     buildMovieList(
       document.getElementById('searchForm'),
       document.getElementById('movieList'),
-      document.getElementById('selectedMovieDescription')
+      document.getElementById('selectedMovieDescription'),
+      omdbApi()
     );
   </script>
 </html>
